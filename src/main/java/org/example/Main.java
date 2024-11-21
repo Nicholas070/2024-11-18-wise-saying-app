@@ -32,10 +32,8 @@ class App {
                 String author = scanner.nextLine();
                 int id =++lastid;
 
-                WiseSaying wiseSaying = new WiseSaying();
-                wiseSaying.id = id;
-                wiseSaying.content = content;
-                wiseSaying.author = author;
+                WiseSaying wiseSaying = new WiseSaying(id, content, author);
+                //System.out.println(wiseSaying);
 
                 lastwiseSaying = wiseSaying;
 
@@ -51,14 +49,18 @@ class App {
         scanner.close();
     }
 }
-class WiseSaying{
+class WiseSaying extends Object{
     int id;
     String content;
     String author;
 
 WiseSaying(int id, String content, String author) {
     this.id = id;
-    this.cotent = content;
+    this.content = content;
     this.author = author;
+}
+@Override
+    public String toString() {
+    return "WiseSaying (id=%d, content=\"%s\", author=\"%s\")".formatted(id, content, author);
 }
 }
