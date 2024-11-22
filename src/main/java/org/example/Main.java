@@ -16,49 +16,55 @@ class App {
         Scanner scanner = new Scanner(System.in);
 
         int lastid = 0;
-        WiseSaying lastwiseSaying=null;
+        WiseSaying lastwiseSaying = null;
 
 
-        while ( true) {
+        while (true) {
             System.out.print("명령) ");
             String cmd = scanner.nextLine();
+
             if (cmd.equals("종료")) {
                 break;
-            }
-            else if (cmd.equals("등록")) {
+            } else if (cmd.equals("등록")) {
                 System.out.print("명언 : ");
                 String content = scanner.nextLine();
                 System.out.print("작가 : ");
                 String author = scanner.nextLine();
-                int id =++lastid;
+                int id = ++lastid;
 
-                WiseSaying wiseSaying = new WiseSaying();
-                wiseSaying.id = id;
-                wiseSaying.content = content;
-                wiseSaying.author = author;
-
+                WiseSaying wiseSaying = new WiseSaying(id, content, author);
+                //System.out.println(wiseSaying);
+                // WiseSaying (id=1, content= "명언", author="작가")으로 만들고 싶다. 오버라이드
                 lastwiseSaying = wiseSaying;
 
+
                 System.out.println("%d번 명언이 등록되었습니다.".formatted(id));
-            }
-            else if (cmd.equals("목록")){
+            } else if (cmd.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 System.out.println("------------------");
-                System.out.println("%d / %s / %s".formatted(lastwiseSaying.id, lastwiseSaying.author, lastwiseSaying.content));
+
+                try {
+                    System.out.println("%d / %s / %s".formatted(lastwiseSaying.id, lastwiseSaying.author, lastwiseSaying.content));
+                } catch (NullPointerException e) {
+                    System.out.println("등록된 명언이 없습니다.");
             }
         }
-
+    }
         scanner.close();
     }
 }
-class WiseSaying{
+class WiseSaying extends Object{
     int id;
     String content;
     String author;
 
 WiseSaying(int id, String content, String author) {
     this.id = id;
-    this.cotent = content;
+    this.content = content;
     this.author = author;
+}
+@Override
+    public String toString() {
+    return "WiseSaying (id=%d, content=\"%s\", author=\"%s\")".formatted(id, content, author);
 }
 }
